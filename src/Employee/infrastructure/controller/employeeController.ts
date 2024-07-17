@@ -1,5 +1,5 @@
-import { employeeUseCases } from "../../application/employeeUseCases";
 import { Request,Response } from "express";
+import { employeeUseCases } from "../../application/employeeUseCases";
 
 export class employeeController{
     constructor(private employeeUseCase: employeeUseCases){}

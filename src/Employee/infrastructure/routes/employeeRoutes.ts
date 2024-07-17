@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import { employeeRepositoryPrisma } from "../repository/employeeRepositoryPrisma";
-import { employeeUseCases  } from "../../application/employeeUseCases";
 import { employeeController } from "../controller/employeeController";
+import { employeeUseCases } from "../../application/employeeUseCases";
 
 const EmployeeRouter= Router();
 const path ="/api/employee";
