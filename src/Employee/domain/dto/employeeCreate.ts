@@ -1,6 +1,6 @@
 export interface employeeCreate {
-  name: String;
-  lastName: String;
-  email: String;
+  name: string;
+  lastName: string;
+  email: string;
   role: boolean;
 }
