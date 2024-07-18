@@ -1,8 +1,8 @@
 export interface employeeEntity{
-    id: String,
-    name:String,
-    lastName:String,
-    email:String,
+    id: string,
+    name:string,
+    lastName:string,
+    email:string,
     role:boolean,
     createdAt :Date
 }
