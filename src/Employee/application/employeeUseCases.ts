@@ -9,7 +9,6 @@ export class employeeUseCases {
     constructor(private readonly employeeRepository: employeeRepository){}
 
 
-
     public async getEmployees(sort?: "name" | "lastname" | "email" | "role", order?: "asc" | "desc"): Promise<employeeEntity[] | null> {
         let employees: employeeEntity[] | null = null;
 

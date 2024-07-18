@@ -47,11 +47,13 @@ export class employeeController{
 
 
 
-    private isValidSort(sort: any): sort is "name" | "lastname" | "email" | "role" {
-        return ["name", "lastname", "email", "role"].includes(sort);
+    private isValidSort(sort:any): sort is "name" | "lastname" | "email" | "role" {
+        const lowerCaseSort = sort.toLowerCase();
+        return ["name", "lastname", "email", "role"].includes(lowerCaseSort);
     }
 
     private isValidOrder(order: any): order is "asc" | "desc" {
-        return ["asc", "desc"].includes(order);
+        const lowerCaseOrder = order.toLowerCase();
+        return ["asc", "desc"].includes(lowerCaseOrder);
     }
 }
