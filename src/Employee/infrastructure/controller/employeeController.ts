@@ -1,47 +1,48 @@
 import { Request,Response } from "express";
 import { employeeUseCases } from "../../application/employeeUseCases";
-import { employeeEntity } from "../../domain/employeeEntity";
+//import { employeeEntity } from "../../domain/employeeEntity";
 
 export class employeeController{
     constructor(private employeeUseCase: employeeUseCases){}
 
-    public getEmployees=async(req:Request,res:Response)=>{
-        const {sort,order}=req.query;
+    // public getEmployees=async(req:Request,res:Response)=>{
+    //     const {sort,order}=req.query;
 
-        let employees:employeeEntity[]=[];
+    //     let employees:employeeEntity[]=[];
         
-        if(sort&&order&& this.isValidSort(sort)&& this.isValidOrder(order)){
-            employees= await this.employeeUseCase.getEmployees(sort,order)??[];
-        }else{
-            employees = await this.employeeUseCase.getEmployees()??[];
-        }
+    //     if(sort&&order&& this.isValidSort(sort)&& this.isValidOrder(order)){
+    //         employees= await this.employeeUseCase.getEmployees(sort,order)??[];
+    //     }else{
+    //         employees = await this.employeeUseCase.getEmployees()??[];
+    //     }
 
-        return employees;
-    }
+    //     return employees;
+    // }
 
     public getEmployeeById=async (req:Request, res:Response)=>{
         const {id} = req.params;
-        const employee= await this.employeeUseCase.getEmployeeById(id)
-        return employee;
+        const employee = await this.employeeUseCase.getEmployeeById(id)
+        res.status(200).json(employee);
     }
 
     public createEmployee= async(req:Request, res:Response)=>{
         const {name, lastName,email, role}= req.body;
         const employeeCreated = await this.employeeUseCase.createEmployee(name,lastName,email,role);
-        return employeeCreated;
+        console.log(employeeCreated);
+        res.status(201).json({'message':employeeCreated});
     }
 
     public editEmployee=async (req:Request,res:Response)=>{
         const {id}= req.params;
         const {name, lastName,email, role}= req.body;
         const employeEdited = await this.employeeUseCase.editEmployee(id,name, lastName,email,role)
-        return employeEdited;
+        res.status(200).json(employeEdited);
     }
 
     public deleteEmployee = async(req:Request,res:Response)=>{
         const {id}= req.params;
         const employeeDeleted = await this.employeeUseCase.deleteEmployee(id);
-        return employeeDeleted;
+        res.status(200).json({'message':'employee deleted successfully'});
     }
 
 
