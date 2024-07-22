@@ -4,7 +4,7 @@ import { employeeCreate } from "../domain/dto/employeeCreate";
 import { employeeUpdate } from "../domain/dto/employeeUpdate";
 //import { employeeEntity } from "../domain/employeeEntity";
 import { employeeRepository } from "../domain/employeeRepository";
-
+import bcrypt from "bcrypt"
 export class employeeUseCases {
     constructor(private readonly employeeRepository: employeeRepository){}
 
@@ -31,12 +31,14 @@ export class employeeUseCases {
         return employee;
     }
 
-    public async createEmployee(name:string, lastName:string,email:string, role:boolean){
+    public async createEmployee(name:string, lastName:string,email:string, role:boolean, password:string){
         const employee:employeeCreate={
-            name,
-            lastName,
-            email,
-            role
+            name:name,
+            lastName:lastName,
+            email:email,
+            password: await this.encriptPassword(password),
+            role:role,
+
         }
         const employeeCreated = await this.employeeRepository.createEmployee(employee)
         return employeeCreated;
@@ -58,5 +60,16 @@ export class employeeUseCases {
     public async deleteEmployee(id:string){
         const employeeDeleted = await this.employeeRepository.deleteEmployee(id)
         return employeeDeleted;
+    }
+
+
+
+    private async encriptPassword(password:string):Promise<string>{
+        try {
+            const passwordHashed = await bcrypt.hash(password, 10);
+            return passwordHashed;
+        } catch (error) {
+            throw error;
+        }
     }
 }
