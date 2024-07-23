@@ -1,5 +1,5 @@
 export interface employeeUpdate{
-    name?: string;
+  name?: string;
   lastName?: string;
   email?: string;
   role?: boolean;

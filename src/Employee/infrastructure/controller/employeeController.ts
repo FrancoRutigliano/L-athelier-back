@@ -26,8 +26,8 @@ export class employeeController{
     }
 
     public createEmployee= async(req:Request, res:Response)=>{
-        const {name, lastName,email, role}= req.body;
-        const employeeCreated = await this.employeeUseCase.createEmployee(name,lastName,email,role);
+        const {name, lastName,email,password, role,}= req.body;
+        const employeeCreated = await this.employeeUseCase.createEmployee(name,lastName,email,role,password);
         console.log(employeeCreated);
         res.status(201).json({'message':employeeCreated});
     }
