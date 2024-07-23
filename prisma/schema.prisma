@@ -20,6 +20,7 @@ model Employee {
   id String @id @default(uuid())
   name String
   lastName String
+  password String
   email String @unique
   role  Boolean 
   createdAt DateTime @default(now())
