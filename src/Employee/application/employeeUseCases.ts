@@ -47,8 +47,14 @@ export class employeeUseCases {
             name:name,
             lastName:lastName,
             email:email,
-            password: await this.encriptPassword(password).value,
+            password: hashPass.value!,
             role:role,
+        }
+
+        const find = await this.employeeRepository.getEmployeeByEmail(email)
+
+        if (find) {
+            return Result.failure("Email already in use", 400);
         }
             
         const employeeCreated = await this.employeeRepository.createEmployee(employee)
