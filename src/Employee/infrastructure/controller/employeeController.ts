@@ -21,28 +21,45 @@ export class employeeController{
 
     public getEmployeeById=async (req:Request, res:Response)=>{
         const {id} = req.params;
-        const employee = await this.employeeUseCase.getEmployeeById(id)
-        res.status(200).json(employee);
+        const result = await this.employeeUseCase.getEmployeeById(id)
+
+        if (result.isSuccess) {
+            return res.status(result.statusCode).json({'message': result.value, 'details': true});
+        }
+        return res.status(result.statusCode).json({'message': result.error, 'details': false});
     }
 
     public createEmployee= async(req:Request, res:Response)=>{
         const {name, lastName,email,password, role,}= req.body;
-        const employeeCreated = await this.employeeUseCase.createEmployee(name,lastName,email,role,password);
-        console.log(employeeCreated);
-        res.status(201).json({'message':employeeCreated});
+        const result = await this.employeeUseCase.createEmployee(name,lastName,email,role,password);
+        
+        if (result.isSuccess) {
+            return res.status(result.statusCode).json({'message': result.value, 'details': true});
+        }
+        return res.status(result.statusCode).json({'message': result.error, 'details': false});
     }
 
     public editEmployee=async (req:Request,res:Response)=>{
         const {id}= req.params;
         const {name, lastName,email, role}= req.body;
-        const employeEdited = await this.employeeUseCase.editEmployee(id,name, lastName,email,role)
-        res.status(200).json(employeEdited);
+        const result = await this.employeeUseCase.editEmployee(id,name, lastName,email,role)
+        
+        if (result.isSuccess) {
+            return res.status(result.statusCode).json({'message': result.value, 'details': true});
+        }
+
+        return res.status(result.statusCode).json({'message': result?.error, 'details': false});
+
     }
 
     public deleteEmployee = async(req:Request,res:Response)=>{
         const {id}= req.params;
-        const employeeDeleted = await this.employeeUseCase.deleteEmployee(id);
-        res.status(200).json({'message':'employee deleted successfully'});
+        const result = await this.employeeUseCase.deleteEmployee(id);
+        if(result.isSuccess) {
+            return res.status(result.statusCode).json({'message': result.value, 'details': true});
+        }
+
+        return res.status(result.statusCode).json({'message': result.error, 'details': false});
     }
 
 

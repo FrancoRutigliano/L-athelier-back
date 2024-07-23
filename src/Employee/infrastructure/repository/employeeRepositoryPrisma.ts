@@ -29,7 +29,15 @@ export class employeeRepositoryPrisma implements employeeRepository{
     async getEmployeeById(id: string): Promise<employeeEntity | null> {
         return await prisma.employee.findUnique({
             where:{
-                id:id
+                id:id,
+            }
+        })
+    }
+
+    async getEmployeeByEmail(email: string): Promise<employeeEntity | null> {
+        return await prisma.employee.findUnique({
+            where: {
+                email: email,
             }
         })
     }
