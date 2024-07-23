@@ -17,13 +17,20 @@ export class productRepositoryPrisma implements productRepository{
         })
     }
     async createProduct(product: productCreate): Promise<productEntity> {
-        throw new Error("Method not implemented.");
+        return await prisma.product.create(
+            {data:product}
+        )
     }
     async editProduct(id: string, product: productUpdate): Promise<productEntity | null> {
-        throw new Error("Method not implemented.");
+        return prisma.product.update({
+            where:{id:id},
+                 data:product
+        })
     }
     async deleteProduct(id: string): Promise<productEntity | null> {
-        throw new Error("Method not implemented.");
+        return await prisma.product.delete({
+            where:{id:id}
+        })
     }
 
 }
