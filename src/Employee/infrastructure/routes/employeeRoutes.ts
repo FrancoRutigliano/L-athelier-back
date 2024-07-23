@@ -37,5 +37,4 @@ EmployeeRouter.post(`${path}/new`,(req:Request,res:Response) => {
     EmployeeController.deleteEmployee(req,res);
  });
 
-
-export default EmployeeRouter
+ export default EmployeeRouter
