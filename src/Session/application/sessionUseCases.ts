@@ -1,3 +1,4 @@
+import { Result } from "../../shared/infrastructure/result/result";
 import { sessionLogin } from "../domain/dto/sessionLogin";
 import { sessionRepository } from "../domain/sessionRepository";
 import bcrypt from "bcrypt";
@@ -6,7 +7,7 @@ import jwt from "jsonwebtoken";
 export class sessionUseCase {
   constructor(private readonly sessionRepository: sessionRepository) {}
 
-  public async login(email: string,password: string): Promise<string | null> {
+  public async login(email: string,password: string): Promise<Result<string>> {
     const sessionUser: sessionLogin = {
       email: email,
       password: password,
@@ -15,7 +16,7 @@ export class sessionUseCase {
     const userExist = await this.sessionRepository.login(sessionUser);
 
     if (!userExist) {
-      return null;
+      return Result.failure("User not found", 404);
     }
 
     const passwordVerification = await this.verifyPasswordSecurity(
@@ -24,13 +25,13 @@ export class sessionUseCase {
     );
 
     if (!passwordVerification) {
-      return null;
+      return Result.failure("Wrong password", 401);
     }
 
     const tokenJWT = process.env.SECRET_JWT;
 
     if (!tokenJWT) {
-        throw new Error('Secret JWT key is not defined');
+        return Result.failure("Oops, something went wrong", 500)
     }
 
     const token = jwt.sign(
@@ -43,9 +44,9 @@ export class sessionUseCase {
     );
 
     if(token){
-        return token
+        return Result.success(token, 200);
     }
-    return null;
+    return Result.failure("Oops, something went wrong", 500);
   }
 
 
