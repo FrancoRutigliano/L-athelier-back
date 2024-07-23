@@ -32,13 +32,14 @@ export class employeeUseCases {
     }
 
     public async createEmployee(name:string, lastName:string,email:string, role:boolean, password:string){
+        const password2= await this.encriptPassword(password)
+        console.log(password2)
         const employee:employeeCreate={
             name:name,
             lastName:lastName,
             email:email,
-            password: await this.encriptPassword(password),
+            password: password2,
             role:role,
-
         }
         const employeeCreated = await this.employeeRepository.createEmployee(employee)
         return employeeCreated;

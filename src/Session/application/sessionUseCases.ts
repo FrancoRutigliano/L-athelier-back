@@ -48,11 +48,6 @@ export class sessionUseCase {
     return null;
   }
 
-
-
-
-
-
   private async verifyPasswordSecurity(password: string,userExist: any): Promise<boolean> {
     const match = await bcrypt.compare(password, userExist.password);
     return match;

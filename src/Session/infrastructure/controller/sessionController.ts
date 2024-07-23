@@ -9,5 +9,5 @@ export class sessionController{
        const token = await this.sessionUseCase.login(email,password);
        res.status(200).json({message:token,details:"true"})
     }
-
+    
 }
