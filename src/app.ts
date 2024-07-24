@@ -22,16 +22,15 @@ if (!secretJWT) {
   throw new Error("No hay clave secreta para JWT");
 }
 
-declare module "express-session" {
-  interface SessionData {
-    user?: sessionEntity; //defino como sera el atributo user de las req.session.user
-  }
-}
-
-app.use(session({  //configuro para que la app utilize las sessiones de express
+app.use(session({
   secret: secretJWT,
   resave: false,
   saveUninitialized: true,
 }));
 
-
+// Extendiendo el tipo de sesión para incluir la propiedad user
+declare module "express-session" {
+  interface SessionData {
+    user?: sessionEntity;
+  }
+}
