@@ -7,6 +7,7 @@ import { sessionEntity } from "./shared/infrastructure/middlewares/auth/entity/s
 import ProductRouter from "./Product/infrastructure/routes/productRoutes";
 
 
+
 dotenv.config();
 export const app = express();
 
