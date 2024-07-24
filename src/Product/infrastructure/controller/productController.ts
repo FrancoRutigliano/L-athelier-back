@@ -25,7 +25,7 @@ export class productController {
     if (result.isSuccess) {
       return res.status(result.statusCode).json({ message: result.value, details: true });
     }
-    return res.status(result.statusCode).json({ message: result.value, details: false });
+    return res.status(result.statusCode).json({ message: result.error, details: false });
   };
 
   public createProduct = async (req: Request, res: Response) => {
@@ -35,7 +35,7 @@ export class productController {
     if(result.isSuccess){
         return res.status(result.statusCode).json({message:result.value,details:true})
     }
-    return res.status(result.statusCode).json({ message: result.value, details: false });
+    return res.status(result.statusCode).json({ message: result.error, details: false });
   };
 
   public editProduct = async (req: Request, res: Response) => {
@@ -46,7 +46,7 @@ export class productController {
     if(result.isSuccess){
         return res.status(result.statusCode).json({message:result.value,details:true})
     }
-    return res.status(result.statusCode).json({ message: result.value, details: false });
+    return res.status(result.statusCode).json({ message: result.error, details: false });
   };
 
   public deleteProduct = async (req: Request, res: Response) => {
@@ -56,6 +56,6 @@ export class productController {
     if(result.isSuccess){
         return res.status(result.statusCode).json({message:result.value,details:true})
     }
-    return res.status(result.statusCode).json({ message: result.value, details: false });
+    return res.status(result.statusCode).json({ message: result.error, details: false });
   };
 }
