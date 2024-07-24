@@ -49,11 +49,6 @@ export class sessionUseCase {
     return Result.failure("Oops, something went wrong", 500);
   }
 
-
-
-
-
-
   private async verifyPasswordSecurity(password: string,userExist: any): Promise<boolean> {
     const match = await bcrypt.compare(password, userExist.password);
     return match;

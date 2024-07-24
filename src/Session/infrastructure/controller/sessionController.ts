@@ -15,5 +15,5 @@ export class sessionController{
 
         return res.status(result.statusCode).json({'message': result.error, 'details': false});
     }
-
+    
 }

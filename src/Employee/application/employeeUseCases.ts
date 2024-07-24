@@ -53,7 +53,7 @@ export class employeeUseCases {
 
         const find = await this.employeeRepository.getEmployeeByEmail(email)
 
-        if (!find) {
+        if (find) {
             return Result.failure("Email already in use", 400);
         }
             

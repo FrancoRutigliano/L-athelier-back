@@ -26,7 +26,7 @@ export class employeeRepositoryPrisma implements employeeRepository{
     //     return employees;
     // }
 
-    async getEmployeeById(id: string): Promise<employeeEntity | null> {
+    async getEmployeeById(id: string): Promise<employeeEntity | null> {  
         return await prisma.employee.findUnique({
             where:{
                 id:id,
@@ -36,8 +36,8 @@ export class employeeRepositoryPrisma implements employeeRepository{
 
     async getEmployeeByEmail(email: string): Promise<employeeEntity | null> {
         return await prisma.employee.findUnique({
-            where: {
-                email: email,
+            where:{
+                email:email
             }
         })
     }
