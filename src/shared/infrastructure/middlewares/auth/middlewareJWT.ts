@@ -18,10 +18,10 @@ export const verifySession = (req: Request, res: Response, next: NextFunction) =
     try {
         const decoded: any = jwt.verify(authToken, secret); 
 
-        if (decoded && typeof decoded === 'object' && decoded.id && decoded.email && decoded.role) {
-            const { id, email, role } = decoded; 
+        if (decoded && typeof decoded === 'object' && decoded.id && decoded.name && decoded.role) {
+            const { id, name, role } = decoded; 
 
-            req.session.user = { id, email, role };
+            req.session.user = { id, name, role };
 
             next(); 
         } else {
