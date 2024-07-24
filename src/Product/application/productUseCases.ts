@@ -30,12 +30,17 @@ export class productUseCase {
       name: name,
     };
 
+    const find = await this.productsRepository.findProductByName(name);
+    if (find) {
+      return Result.failure("Product already exists", 409);
+    }
+
     const productCreated = await this.productsRepository.createProduct(product);
 
     if (!productCreated) {
       return Result.failure("Oops, something went wrong", 500);
     }
-    return Result.success(productCreated, 200);
+    return Result.success(productCreated, 201);
   }
 
   public async editProduct(id: string,name: string): Promise<Result<productEntity>> {

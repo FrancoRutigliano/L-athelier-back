@@ -16,6 +16,14 @@ export class productRepositoryPrisma implements productRepository{
             }
         })
     }
+
+    async findProductByName(name: string): Promise<productEntity | null> {
+        return await prisma.product.findFirst({
+            where:{
+                name:name
+            }
+        })
+    }
     async createProduct(product: productCreate): Promise<productEntity> {
         return await prisma.product.create(
             {data:product}
