@@ -34,7 +34,7 @@ ProductRouter.patch(`${path}/edit/:id`, (req:Request,res:Response)=>{
 
 
 ProductRouter.delete(`${path}/delete/:id`, (req:Request,res:Response)=>{
-    ProductController.getProducts(req,res);
+    ProductController.deleteProduct(req, res);
 })
 
 export default ProductRouter
