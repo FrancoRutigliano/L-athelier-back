@@ -5,6 +5,7 @@ import SessionRouter from "./Session/infrastructure/routes/sessionRoutes";
 import session from "express-session";
 import { sessionEntity } from "./shared/infrastructure/middlewares/auth/entity/sessionEntity";
 import ProductRouter from "./Product/infrastructure/routes/productRoutes";
+import ClientRouter from "./Client/infrastructure/routes/clientRoutes";
 
 
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(EmployeeRouter);
 app.use(SessionRouter);
 app.use(ProductRouter);
+app.use(ClientRouter);
 
 const secretJWT = process.env.SECRET_JWT;
 if (!secretJWT) {
