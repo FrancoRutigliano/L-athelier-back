@@ -31,6 +31,6 @@ app.use(session({
 // Extendiendo el tipo de sesión para incluir la propiedad user
 declare module "express-session" {
   interface SessionData {
-    user?: sessionEntity;
+    user: sessionEntity|null;
   }
 }
