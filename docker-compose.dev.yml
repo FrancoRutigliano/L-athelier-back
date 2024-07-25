@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+ api:
+  build:
+   context: .
+   target: build
+  volumes:
+   - ./:/app
+   - /app/node_modules
+  ports:
+   - 8080:8080
+  command: npm run dev
+ db:
+  image: mysql:9.0
+  container_name: l-athelier-db
+  environment:
+    MYSQL_ROOT_PASSWORD: ${PASSWORD_DB_ROOT}
+    MYSQL_DATABASE: ${DB_NAME}
+    MYSQL_USER: ${DB_USER}
+    MYSQL_PASSWORD: ${DB_PASSWORD}
+  ports:
+    - "3306:3306"
+  volumes:
+      - ./mysql:/var/lib/mysql
+
+volumes:
+  db-data:
