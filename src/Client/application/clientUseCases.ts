@@ -39,7 +39,7 @@ export class clientUseCases{
     
       }
     
-      public async editClient(id: string,fullName: string,email?:string): Promise<Result<clientEntity>> {
+      public async editClient(id: string,fullName: string,email?:string,descriptionProducts?:string): Promise<Result<clientEntity>> {
         const find= await this.clientRepository.getClientById(id)
 
         if(!find){
@@ -48,7 +48,8 @@ export class clientUseCases{
 
         const client :clientUpdate={
             fullName:fullName,
-            email:email
+            email:email,
+            descriptionProducts:descriptionProducts
         }
 
        const clientUpdated= await this.clientRepository.updateClient(id,client)
