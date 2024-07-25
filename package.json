@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --poll ./src/server.ts",
     "build": "rimraf ./dist && tsc",
-    "start": "npm run build && node dist/index.js"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +29,7 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
+    "memorystore": "^1.6.7",
     "prisma": "^5.17.0"
   }
 }
