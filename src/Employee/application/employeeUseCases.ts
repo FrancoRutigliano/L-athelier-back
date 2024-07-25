@@ -69,6 +69,13 @@ export class employeeUseCases {
 
 
     public async editEmployee(id:string,name:string, lastName:string, email:string, role:boolean): Promise<Result<employeeEntity>> {
+
+        const find = await this.employeeRepository.getEmployeeById(id);
+        
+        if(!find){
+            return Result.failure("Employee not found", 404);
+        }
+
         const employe: employeeUpdate={
             name,
             lastName,
@@ -85,6 +92,12 @@ export class employeeUseCases {
     }
 
     public async deleteEmployee(id:string): Promise<Result<employeeEntity>> {
+        const find = await this.employeeRepository.getEmployeeById(id);
+        
+        if(!find){
+            return Result.failure("Employe not found",404)
+        }
+
         const employeeDeleted = await this.employeeRepository.deleteEmployee(id)
 
         if (!employeeDeleted) {
