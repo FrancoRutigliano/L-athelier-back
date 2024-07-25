@@ -21,7 +21,7 @@ export const verifySession = (req: Request, res: Response, next: NextFunction) =
         if (decoded && typeof decoded === 'object' && decoded.id && decoded.email && decoded.role) {
             const { id, email, role } = decoded; 
 
-            req.session.user = { id, email, role };
+            //req.session.user = { id, email, role };
 
             next(); 
         } else {
