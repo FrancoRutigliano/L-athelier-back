@@ -5,19 +5,13 @@ import { employeeUseCases } from "../../application/employeeUseCases";
 export class employeeController{
     constructor(private employeeUseCase: employeeUseCases){}
 
-    // public getEmployees=async(req:Request,res:Response)=>{
-    //     const {sort,order}=req.query;
-
-    //     let employees:employeeEntity[]=[];
-        
-    //     if(sort&&order&& this.isValidSort(sort)&& this.isValidOrder(order)){
-    //         employees= await this.employeeUseCase.getEmployees(sort,order)??[];
-    //     }else{
-    //         employees = await this.employeeUseCase.getEmployees()??[];
-    //     }
-
-    //     return employees;
-    // }
+    public getEmployees = async (req: Request, res: Response) => {
+        const result = await this.employeeUseCase.getEmployees();
+        if (result.isSuccess) {
+            return res.status(result.statusCode).json({ 'message': result.value, 'details': true });
+        }
+        return res.status(result.statusCode).json({ 'message': result.error, 'details': false });
+    }
 
     public getEmployeeById=async (req:Request, res:Response)=>{
         const {id} = req.params;

@@ -10,22 +10,10 @@ import { employeeRepository } from "../../domain/employeeRepository";
 export class employeeRepositoryPrisma implements employeeRepository{
     
     
-    // async getEmployees(order?: employeeOrderInput): Promise<employeeEntity[] | null> {
-    //     let orderBy: Prisma.EmployeeOrderByWithRelationInput | undefined;
-
-    //     if (order) {
-    //         orderBy = {
-    //             [order.sort]: order.order,
-    //         };
-    //     }
-
-    //     const employees = await prisma.employee.findMany({
-    //         orderBy, // Si orderBy es undefined, no se aplica ordenamiento
-    //     });
-
-    //     return employees;
-    // }
-
+    async getEmployees(): Promise<employeeEntity[] | null> {
+        return await prisma.employee.findMany();
+    }
+    
     async getEmployeeById(id: string): Promise<employeeEntity | null> {  
         return await prisma.employee.findUnique({
             where:{

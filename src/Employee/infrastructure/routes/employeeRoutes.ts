@@ -18,6 +18,10 @@ const EmployeeController = new employeeController(EmployeeUseCases)
 //  });
 
 
+EmployeeRouter.get(`${path}`, (req: Request, res: Response) => {
+   EmployeeController.getEmployees(req, res);
+})
+
  EmployeeRouter.get(`${path}/:id`,(req:Request,res:Response) => {
     EmployeeController.getEmployeeById(req,res);
  });
