@@ -4,14 +4,16 @@ import cors from "cors";
 import EmployeeRouter from "./Employee/infrastructure/routes/employeeRoutes";
 import SessionRouter from "./Session/infrastructure/routes/sessionRoutes";
 import ClientRouter from "./Client/infrastructure/routes/clientRoutes";
-import { corsConfig } from "./config/cors";
+import  {verifyConecction}  from "./config/cors";
+
 
 
 
 dotenv.config();
 export const app = express();
 
-app.use(cors(corsConfig));
+app.use(verifyConecction);
+app.use(cors());
 app.use(express.json());
 
 app.use(EmployeeRouter);
