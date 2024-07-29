@@ -1,13 +1,22 @@
-import { CorsOptions } from 'cors';
+import { Request, Response, NextFunction } from "express";
+import dotenv from "dotenv"
+dotenv.config();
 
-export const corsConfig: CorsOptions = {
-    origin: function(origin, callback) {
-        const whitelist = [process.env.FRONTEND_URL];
+export const verifyConecction = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  var allowlist = [process.env.FRONTEND_URL];
+  const origin = req.headers.host;
 
-        if(whitelist.includes(origin)) {
-            return callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    }
-}
+  if (!origin) {
+    return res.status(401).json({ message: "prohibido" });
+  }
+
+  if (allowlist.indexOf(origin) !== -1) {
+    next();
+  } else {
+    res.status(401).json({ message: "prohibido" });
+  }
+};
