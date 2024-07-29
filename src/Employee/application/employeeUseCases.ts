@@ -11,22 +11,15 @@ export class employeeUseCases {
     constructor(private readonly employeeRepository: employeeRepository){}
 
 
-    // public async getEmployees(sort?: "name" | "lastname" | "email" | "role", order?: "asc" | "desc"): Promise<employeeEntity[] | null> {
-    //     let employees: employeeEntity[] | null = null;
+    public async getEmployees() : Promise<Result<employeeEntity[]>> {
+        const employees = await this.employeeRepository.getEmployees();
 
-    //     if (sort && order) {
-    //         const orderBy: employeeOrderInput = {
-    //             sort:sort,
-    //             order: order
-    //         };
+        if (!employees) {
+            return Result.failure("Employees not found", 404);
+        }
 
-    //         employees = await this.employeeRepository.getEmployees(orderBy)
-    //     } else {
-    //         employees = await this.employeeRepository.getEmployees();
-    //     }
-
-    //     return employees ?? []; // Return an empty array if employees is null
-    // }
+        return Result.success(employees, 200);
+    }
 
     public async getEmployeeById(id:string): Promise<Result<employeeEntity>> {
         const employee =  await this.employeeRepository.getEmployeeById(id);
@@ -69,6 +62,13 @@ export class employeeUseCases {
 
 
     public async editEmployee(id:string,name:string, lastName:string, email:string, role:boolean): Promise<Result<employeeEntity>> {
+
+        const find = await this.employeeRepository.getEmployeeById(id);
+        
+        if(!find){
+            return Result.failure("Employee not found", 404);
+        }
+
         const employe: employeeUpdate={
             name,
             lastName,
@@ -85,6 +85,12 @@ export class employeeUseCases {
     }
 
     public async deleteEmployee(id:string): Promise<Result<employeeEntity>> {
+        const find = await this.employeeRepository.getEmployeeById(id);
+        
+        if(!find){
+            return Result.failure("Employe not found",404)
+        }
+
         const employeeDeleted = await this.employeeRepository.deleteEmployee(id)
 
         if (!employeeDeleted) {

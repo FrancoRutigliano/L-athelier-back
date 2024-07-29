@@ -31,7 +31,7 @@ export class sessionUseCase {
     const tokenJWT = process.env.SECRET_JWT;
 
     if (!tokenJWT) {
-        return Result.failure("Oops, something went wrong", 500)
+      return Result.failure("Oops, something went wrong", 500)
     }
 
     const token = jwt.sign(
@@ -40,7 +40,10 @@ export class sessionUseCase {
         name: userExist.name,
         role: userExist.role,
       },
-      tokenJWT
+      tokenJWT,
+      {
+        expiresIn: '2w' // Establece la expiración a 2 semanas
+      }
     );
 
     if(token){

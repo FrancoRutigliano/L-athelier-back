@@ -1,5 +1,5 @@
 export interface sessionEntity{
     id:string,
-    email:string
+    name:string
     role:boolean
 }
