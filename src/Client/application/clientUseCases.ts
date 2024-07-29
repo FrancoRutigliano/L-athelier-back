@@ -27,8 +27,7 @@ export class clientUseCases{
     
       public async createClient(fullName:string,email ?:  string): Promise<Result<clientEntity>> {
         const client:clientCreate={
-            fullName:fullName,
-            email:email
+            fullName:fullName
         }
         const clientCreated = await this.clientRepository.createClient(client);
 
@@ -48,7 +47,6 @@ export class clientUseCases{
 
         const client :clientUpdate={
             fullName:fullName,
-            email:email,
             descriptionProducts:descriptionProducts
         }
 

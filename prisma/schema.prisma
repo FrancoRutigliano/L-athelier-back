@@ -29,7 +29,6 @@ model Employee {
 model Client {
   id        String     @id @default(uuid())
   fullName  String
-  email     String?    @unique
   descriptionProducts String?
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
