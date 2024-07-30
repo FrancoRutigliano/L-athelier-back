@@ -3,6 +3,7 @@ import { Result } from "../../shared/infrastructure/result/result";
 import { employeeCreate } from "../domain/dto/employeeCreate";
 //import { employeeOrderInput } from "../domain/dto/employeeOrderInput";
 import { employeeUpdate } from "../domain/dto/employeeUpdate";
+import { employeeUpdatePassword } from "../domain/dto/employeeUpdatePassword";
 import { employeeEntity } from "../domain/employeeEntity";
 //import { employeeEntity } from "../domain/employeeEntity";
 import { employeeRepository } from "../domain/employeeRepository";
@@ -100,6 +101,31 @@ export class employeeUseCases {
         return Result.success(employeeDeleted, 200);
     }
 
+
+    public async editPassword(email:string,newPassword:string):Promise<Result<employeeEntity>>{
+        const find = await this.employeeRepository.getEmployeeByEmail(email);
+        
+        if(!find){
+            return Result.failure("Employe not found",404)
+        }
+        
+        const hashPass = await this.encriptPassword(newPassword);
+        if (!hashPass.isSuccess) {
+            return Result.failure(hashPass.error!, hashPass.statusCode);
+        }
+        
+        const employee:employeeUpdatePassword={
+            password:hashPass.value!
+        }
+
+        const employeeUpdated= await this.employeeRepository.editPassword(email,employee);
+
+        if (!employeeUpdated) {
+            return Result.failure("Oops, something went wrong", 500);
+        }
+
+        return Result.success(employeeUpdated,200);
+    }
 
 
     private async encriptPassword(password:string):Promise<Result<string>>{
