@@ -13,12 +13,6 @@ const EmployeeUseCases = new employeeUseCases(EmployeeRepositoryPrisma);
 
 const EmployeeController = new employeeController(EmployeeUseCases)
 
-
-// EmployeeRouter.get(`${path}`,(req:Request,res:Response) => {
-//     EmployeeController.getEmployees(req,res);
-//  });
-
-
 EmployeeRouter.get(`${path}`, verifySessionAdmin,(req: Request, res: Response) => {
    EmployeeController.getEmployees(req, res);
 })
