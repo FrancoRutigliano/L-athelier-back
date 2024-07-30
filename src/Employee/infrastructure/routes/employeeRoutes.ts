@@ -42,4 +42,8 @@ EmployeeRouter.post(`${path}/new`,(req:Request,res:Response) => {
     EmployeeController.deleteEmployee(req,res);
  });
 
+ EmployeeRouter.patch(`${path}/change/password`,verifySessionAdmin,(req:Request,res:Response) => {
+   EmployeeController.editPassword(req,res);
+});
+
  export default EmployeeRouter
