@@ -68,14 +68,4 @@ export class employeeController{
        return res.status(result.statusCode).json({'message': result.error, 'details':false});
        
     }
-
-    private isValidSort(sort:any): sort is "name" | "lastname" | "email" | "role" {
-        const lowerCaseSort = sort.toLowerCase();
-        return ["name", "lastname", "email", "role"].includes(lowerCaseSort);
-    }
-    
-    private isValidOrder(order: any): order is "asc" | "desc" {
-        const lowerCaseOrder = order.toLowerCase();
-        return ["asc", "desc"].includes(lowerCaseOrder);
-    }
 }
