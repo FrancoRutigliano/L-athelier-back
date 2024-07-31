@@ -7,19 +7,19 @@ export const verifyConecction = (
   res: Response,
   next: NextFunction
 ) => {
-  var allowlist = [process.env.FRONTEND_URL];
-  //const origin = req.headers.host;
+  var allowlist = [process.env.FRONTEND_URL || "http://localhost:5173"];
 
-  const orrigin = req.header('origin');
+  const origin = req.header('origin');
 
-  console.log(orrigin);
+  console.log(origin);
 
   if (!origin) {
     return res.status(401).json({ message: "prohibido" });
   }
 
-  if (allowlist.includes(origin)) {
+  if (allowlist.includes(origin) || !origin) {
     res.header("Access-Control-Allow-Origin", origin);
+    res.header("Access-Control-Allow-Headers", "GET, POST, PUT, DELETE");
     next();
   } else {
     res.status(401).json({ message: "prohibido" });
