@@ -12,8 +12,8 @@ import  {verifyConecction}  from "./config/cors";
 dotenv.config();
 export const app = express();
 
-//app.use(verifyConecction);
-//app.use(cors());
+app.use(verifyConecction);
+app.use(cors());
 app.use(express.json());
 
 app.use(EmployeeRouter);
