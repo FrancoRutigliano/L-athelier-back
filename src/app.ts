@@ -13,11 +13,18 @@ import  {verifyConecction}  from "./config/cors";
 dotenv.config();
 export const app = express();
 
-app.use(verifyConecction);
 app.use(express.json());
+//app.use(verifyConecction);
 
-app.use(EmployeeRouter);
+app.use(cors({
+  origin: 'http://localhost:5173', // Cambia esto al origen de tu frontend
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
 app.use(SessionRouter);
+app.use(EmployeeRouter);
 app.use(ClientRouter);
 
 const secretJWT = process.env.SECRET_JWT;
