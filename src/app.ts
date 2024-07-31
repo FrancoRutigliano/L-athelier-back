@@ -1,4 +1,5 @@
 import express from "express";
+import { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import EmployeeRouter from "./Employee/infrastructure/routes/employeeRoutes";
@@ -13,7 +14,6 @@ dotenv.config();
 export const app = express();
 
 app.use(verifyConecction);
-app.use(cors());
 app.use(express.json());
 
 app.use(EmployeeRouter);
