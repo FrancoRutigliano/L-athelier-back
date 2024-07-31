@@ -17,6 +17,11 @@ export const verifyConecction = (
     res.append("Access-Control-Allow-Origin", origin);
     res.append("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
     res.append("Access-Control-Allow-Headers", "Content-Type");
+
+    if (req.method === "OPTIONS") {
+      res.status(200);
+    }
+
     next();
   } else {
     res.status(401).json({ message: "prohibido" });
