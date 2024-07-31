@@ -5,7 +5,7 @@ import cors from "cors";
 import EmployeeRouter from "./Employee/infrastructure/routes/employeeRoutes";
 import SessionRouter from "./Session/infrastructure/routes/sessionRoutes";
 import ClientRouter from "./Client/infrastructure/routes/clientRoutes";
-import  {verifyConecction}  from "./config/cors";
+//import  {verifyConecction}  from "./config/cors";
 
 
 

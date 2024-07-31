@@ -3,7 +3,6 @@ import { clientRepositoryPrisma } from "../repository/clientRepositoryPrisma";
 import { clientUseCases } from "../../application/clientUseCases";
 import { clientController } from "../controller/clientController";
 import { verifySession } from "../../../shared/infrastructure/middlewares/auth/middlewareJWT";
-import { verifyConecction } from "../../../config/cors";
 
 
 const ClientRouter= Router();
@@ -16,7 +15,7 @@ const ClientUseCases = new clientUseCases(ClientRepositoryPrisma);
 const ClientController = new clientController(ClientUseCases)
 
 
- ClientRouter.get(`${path}`, verifySession, verifyConecction,(req:Request,res:Response) => {
+ ClientRouter.get(`${path}`, verifySession,(req:Request,res:Response) => {
      ClientController.getClients(req,res);
   });
 
