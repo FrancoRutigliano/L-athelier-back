@@ -47,6 +47,7 @@ export class sessionUseCase {
     );
 
     if(token){
+
         return Result.success(token, 200);
     }
     return Result.failure("Oops, something went wrong", 500);
@@ -57,5 +58,12 @@ export class sessionUseCase {
     return match;
   }
 
+  public async decodeJwt(token: string): Promise<Result<boolean>> {
+    const payload: any = jwt.decode(token);
+    if (payload) {
+      return Result.success(payload.role, 200);
+    }
+    return Result.failure("Oops, something went wrong", 500);
+  }
 
 }
