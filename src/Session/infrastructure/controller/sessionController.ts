@@ -28,5 +28,10 @@ export class sessionController{
 
         return res.status(result.statusCode).json({'message': result.error, 'details': false});
     }
+
+    public logout = async (req: Request, res: Response) => {
+        res.clearCookie('access_token');
+        return res.status(200).json({'message':'logout successfully', 'details': true});
+    }
     
 }
