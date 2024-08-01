@@ -3,13 +3,13 @@ import jwt from 'jsonwebtoken';
 import { sessionEntity } from '../auth/entity/sessionEntity';
 
 export const verifySessionAdmin = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers['authorization'];
+  const token = req.cookies.access_token;
 
-  if (!authHeader) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized: No token provided' });
   }
 
-  const token = authHeader.replace(/Bearer\s+/i, '').trim(); // Clean token and remove Bearer prefix
+   // Clean token and remove Bearer prefix
   const secret = process.env.SECRET_JWT;
 
   if (!secret) {
