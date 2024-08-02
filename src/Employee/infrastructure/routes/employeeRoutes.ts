@@ -13,12 +13,6 @@ const EmployeeUseCases = new employeeUseCases(EmployeeRepositoryPrisma);
 
 const EmployeeController = new employeeController(EmployeeUseCases)
 
-
-// EmployeeRouter.get(`${path}`,(req:Request,res:Response) => {
-//     EmployeeController.getEmployees(req,res);
-//  });
-
-
 EmployeeRouter.get(`${path}`, verifySessionAdmin,(req: Request, res: Response) => {
    EmployeeController.getEmployees(req, res);
 })
@@ -28,7 +22,7 @@ EmployeeRouter.get(`${path}`, verifySessionAdmin,(req: Request, res: Response) =
  });
 
 
-EmployeeRouter.post(`${path}/new`,(req:Request,res:Response) => {
+EmployeeRouter.post(`${path}/new`, verifySessionAdmin,(req:Request,res:Response) => {
     EmployeeController.createEmployee(req,res);
  });
 
@@ -41,5 +35,9 @@ EmployeeRouter.post(`${path}/new`,(req:Request,res:Response) => {
  EmployeeRouter.delete(`${path}/delete/:id`, verifySessionAdmin,(req:Request,res:Response) => {
     EmployeeController.deleteEmployee(req,res);
  });
+
+ EmployeeRouter.patch(`${path}/change/password`,(req:Request,res:Response) => {
+   EmployeeController.editPassword(req,res);
+});
 
  export default EmployeeRouter

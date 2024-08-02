@@ -16,5 +16,8 @@ SessionRouter.post(`${path}/login`,(req:Request,res:Response) => {
     SessionController.login(req,res);
  });
 
+SessionRouter.post(`${path}/logout`, (req: Request, res: Response) => {
+    SessionController.logout(req, res);
+})
 
 export default SessionRouter
