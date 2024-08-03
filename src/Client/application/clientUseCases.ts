@@ -45,21 +45,18 @@ export class clientUseCases{
             return Result.failure("Client not found", 404);
         }
 
-        if (!descriptionProducts) {
-            const client: clientUpdate = {
-                fullName: fullName,
-            };
-            const clientUpdated= await this.clientRepository.updateClient(id,client)
-            
-            if(!clientUpdated){
-                return Result.failure("Oops, something went wrong", 500);
-           }
-            return Result.success(clientUpdated,200);
+        const client: clientUpdate = {};
+
+        if(!fullName && !descriptionProducts) {
+            return Result.failure("At least one field is required", 404)
         }
 
-        const client: clientUpdate = {
-            fullName: fullName,
-            descriptionProducts: descriptionProducts
+        if (fullName) {
+            client.fullName = fullName
+        }
+
+        if (descriptionProducts) {
+            client.descriptionProducts = descriptionProducts
         }
         
         const clientUpdated = await this.clientRepository.updateClient(id,client)
