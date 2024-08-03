@@ -38,19 +38,31 @@ export class clientUseCases{
     
       }
     
-      public async editClient(id: string,fullName: string,email?:string,descriptionProducts?:string): Promise<Result<clientEntity>> {
+      public async editClient(id: string, fullName: string, descriptionProducts?:string): Promise<Result<clientEntity>> {
         const find= await this.clientRepository.getClientById(id)
 
         if(!find){
             return Result.failure("Client not found", 404);
         }
 
-        const client :clientUpdate={
-            fullName:fullName,
-            descriptionProducts:descriptionProducts
+        if (!descriptionProducts) {
+            const client: clientUpdate = {
+                fullName: fullName,
+            };
+            const clientUpdated= await this.clientRepository.updateClient(id,client)
+            
+            if(!clientUpdated){
+                return Result.failure("Oops, something went wrong", 500);
+           }
+            return Result.success(clientUpdated,200);
         }
 
-       const clientUpdated= await this.clientRepository.updateClient(id,client)
+        const client: clientUpdate = {
+            fullName: fullName,
+            descriptionProducts: descriptionProducts
+        }
+        
+        const clientUpdated = await this.clientRepository.updateClient(id,client)
 
        if(!clientUpdated){
             return Result.failure("Oops, something went wrong", 500);
