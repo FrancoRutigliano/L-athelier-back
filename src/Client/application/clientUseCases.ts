@@ -48,7 +48,7 @@ export class clientUseCases{
         const client: clientUpdate = {};
 
         if(!fullName && !descriptionProducts) {
-            return Result.failure("At least one field is required", 404)
+            return Result.failure("At least one field is required", 400);
         }
 
         if (fullName) {
