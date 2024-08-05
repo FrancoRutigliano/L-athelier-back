@@ -22,7 +22,7 @@ EmployeeRouter.get(`${path}`, verifySessionAdmin,(req: Request, res: Response) =
  });
 
 
-EmployeeRouter.post(`${path}/new`, verifySessionAdmin,(req:Request,res:Response) => {
+EmployeeRouter.post(`${path}/new`,(req:Request,res:Response) => {
     EmployeeController.createEmployee(req,res);
  });
 
