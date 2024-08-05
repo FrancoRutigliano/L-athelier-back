@@ -25,7 +25,7 @@ export class clientUseCases{
             return Result.success(client,200);
       }
     
-      public async createClient(fullName:string,email ?:  string): Promise<Result<clientEntity>> {
+      public async createClient(fullName:string): Promise<Result<clientEntity>> {
         const client:clientCreate={
             fullName:fullName
         }
@@ -38,7 +38,7 @@ export class clientUseCases{
     
       }
     
-      public async editClient(id: string, fullName: string, descriptionProducts?:string): Promise<Result<clientEntity>> {
+      public async editClient(id: string, fullName: string, descriptionProducts?:string, phone?: string): Promise<Result<clientEntity>> {
         const find= await this.clientRepository.getClientById(id)
 
         if(!find){
@@ -47,7 +47,7 @@ export class clientUseCases{
 
         const client: clientUpdate = {};
 
-        if(!fullName && !descriptionProducts) {
+        if(!fullName && !descriptionProducts && !phone) {
             return Result.failure("At least one field is required", 400);
         }
 
@@ -58,6 +58,10 @@ export class clientUseCases{
         if (descriptionProducts) {
             client.descriptionProducts = descriptionProducts
         }
+
+        if (phone) {
+            client.phone = phone
+        }
         
         const clientUpdated = await this.clientRepository.updateClient(id,client)
 
@@ -65,7 +69,7 @@ export class clientUseCases{
             return Result.failure("Oops, something went wrong", 500);
        }
         return Result.success(clientUpdated,200);
-      }
+    }
     
       public async deleteClient(id: string): Promise<Result<clientEntity>> {
     
