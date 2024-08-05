@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser())
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Cambia esto al origen de tu frontend
+  origin: process.env.FRONTEND_URL, // Cambia esto al origen de tu frontend
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
