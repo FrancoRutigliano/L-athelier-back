@@ -22,7 +22,7 @@ export class sessionController{
             if (token !== undefined){
                 let resultRole = await this.sessionUseCase.decodeJwt(token);
 
-                return res.status(resultRole.statusCode).json({ 'role': resultRole.value, 'details': true });
+                return res.status(resultRole.statusCode).json({'role': resultRole.value,'token':token,'details': true });
             }
         } 
 
