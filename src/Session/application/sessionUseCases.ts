@@ -47,7 +47,6 @@ export class sessionUseCase {
     );
 
     if(token){
-
         return Result.success(token, 200);
     }
     return Result.failure("Oops, something went wrong", 500);
