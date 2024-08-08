@@ -20,4 +20,8 @@ SessionRouter.post(`${path}/logout`, (req: Request, res: Response) => {
     SessionController.logout(req, res);
 })
 
+SessionRouter.get(`${path}/auth`, (req: Request, res: Response) => {
+    SessionController.auth(req, res);
+})
+
 export default SessionRouter

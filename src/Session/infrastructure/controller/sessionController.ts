@@ -33,5 +33,21 @@ export class sessionController{
         res.clearCookie('access_token');
         return res.status(200).json({'message':'logout successfully', 'details': true});
     }
+
+    public auth = async (req: Request, res: Response) => {
+        const token = req.headers['authorization'];
+
+        if (!token) {
+            return res.status(401).json({ 'result': false, 'details': false });
+        }
+
+        const result = await this.sessionUseCase.auth(token);
+
+        if (!result.isSuccess) {
+            return res.status(result.statusCode).json({ 'result': false, 'details': false });
+        }
+
+        return res.status(result.statusCode).json({ 'result': true, 'details': true });
+    }   
     
 }
