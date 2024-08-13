@@ -17,6 +17,7 @@ CREATE TABLE `Client` (
     `id` VARCHAR(191) NOT NULL,
     `fullName` VARCHAR(191) NOT NULL,
     `descriptionProducts` VARCHAR(191) NULL,
+    `phone` VARCHAR(18) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

@@ -25,8 +25,8 @@ export class clientController{
     }
 
     public createClient=async(req:Request,res:Response)=>{
-        const { fullName,email}= req.body;
-        const result = await this.clientUseCases.createClient(fullName,email);
+        const {fullName}= req.body;
+        const result = await this.clientUseCases.createClient(fullName);
         
         if (result.isSuccess) {
             return res.status(result.statusCode).json({'message': result.value, 'details': true});
@@ -36,8 +36,8 @@ export class clientController{
 
     public editClient=async(req:Request,res:Response)=>{
         const {id}= req.params;
-        const {fullName,email,descriptionProducts}= req.body;
-        const result = await this.clientUseCases.editClient(id,fullName,email,descriptionProducts)
+        const {fullName,descriptionProducts, phone}= req.body;
+        const result = await this.clientUseCases.editClient(id, fullName, descriptionProducts, phone)
         
         if (result.isSuccess) {
             return res.status(result.statusCode).json({'message': result.value, 'details': true});

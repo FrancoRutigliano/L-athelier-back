@@ -47,10 +47,34 @@ export class sessionUseCase {
     );
 
     if(token){
-
         return Result.success(token, 200);
     }
     return Result.failure("Oops, something went wrong", 500);
+  }
+
+  public async auth(token: string) : Promise<Result<string>> {
+    
+    const tokenP = token.split(' ');
+    if (tokenP.length !== 2 || tokenP[0] !== 'Bearer') {
+      return Result.failure("Invalid token", 401);
+    }
+
+    const tokenValue = tokenP[1];
+
+    const secret = process.env.SECRET_JWT;
+
+    if (!secret) {
+      return Result.failure("Internal server error: Secret key not defined", 500);
+    }
+
+    try {
+      await this.verifyToken(tokenValue, secret);
+      
+
+      return Result.success("Token verified", 200);
+    } catch (error) {
+      return Result.failure("Invalid token", 401);
+    }
   }
 
   private async verifyPasswordSecurity(password: string,userExist: any): Promise<boolean> {
@@ -64,6 +88,17 @@ export class sessionUseCase {
       return Result.success(payload.role, 200);
     }
     return Result.failure("Oops, something went wrong", 500);
+  }
+
+  private async verifyToken(token: string, secret: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, secret, (err, decode) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(decode);
+      })
+    })
   }
 
 }

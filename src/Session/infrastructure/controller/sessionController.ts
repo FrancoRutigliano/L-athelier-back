@@ -14,7 +14,7 @@ export class sessionController{
             const cookies = res.cookie('access_token', token, {
                 httpOnly: true,
                 secure: true,
-                sameSite: 'lax',
+                sameSite: 'none', 
                 maxAge: 14 * 24 * 60 * 60 * 1000,
                 
             });
@@ -22,7 +22,7 @@ export class sessionController{
             if (token !== undefined){
                 let resultRole = await this.sessionUseCase.decodeJwt(token);
 
-                return res.status(resultRole.statusCode).json({ 'role': resultRole.value, 'details': true });
+                return res.status(resultRole.statusCode).json({'role': resultRole.value,'token':token,'details': true });
             }
         } 
 
@@ -33,5 +33,21 @@ export class sessionController{
         res.clearCookie('access_token');
         return res.status(200).json({'message':'logout successfully', 'details': true});
     }
+
+    public auth = async (req: Request, res: Response) => {
+        const token = req.headers['authorization'];
+
+        if (!token) {
+            return res.status(401).json({ 'result': false, 'details': false });
+        }
+
+        const result = await this.sessionUseCase.auth(token);
+
+        if (!result.isSuccess) {
+            return res.status(result.statusCode).json({ 'result': false, 'details': false });
+        }
+
+        return res.status(result.statusCode).json({ 'result': true, 'details': true });
+    }   
     
 }
